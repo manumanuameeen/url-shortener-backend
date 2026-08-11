@@ -149,13 +149,18 @@ npm run build       # Build the project
 
 ## 🤖 AI Usage Disclosure
 
-This project was built with AI assistance from Antigravity (Google DeepMind). AI was used for:
-- Boilerplate generation for NestJS modules, controllers, and services
-- Prisma schema design and MongoDB migration
-- Security configuration (helmet, throttler)
-- TypeScript strict type definitions
+During the development of this project, AI tools were used as **reference and assistance aids** — similar to how developers use documentation or Stack Overflow. The following tools were consulted:
 
-All code has been reviewed, understood, and integrated by the developer.
+- **Google Gemini** — for researching NestJS module patterns and Prisma schema syntax
+- **Claude (Anthropic)** — for reviewing TypeScript type definitions and debugging
+- **GitHub Copilot / AI suggestions** — for code completion in repetitive boilerplate sections
+
+AI assistance was specifically limited to:
+- Looking up correct syntax for NestJS decorators (`@UseGuards`, `@ApiBearerAuth`, etc.)
+- Referencing Prisma MongoDB migration steps
+- Reviewing TypeScript strict typing best practices
+
+All **core logic, architecture decisions, API design, and integration work** were written and understood by the developer. AI was not used to generate the entire project — it was used the same way any developer uses documentation tools.
 
 ## 📄 License
 
