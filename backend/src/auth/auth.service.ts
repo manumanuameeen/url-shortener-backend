@@ -1,16 +1,28 @@
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import type { User } from '@prisma/client';
 import { UsersService } from '../users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+
+export type SafeUser = Omit<User, 'passwordHash'>;
+
+export interface RegisterResponse extends SafeUser {}
+
+export interface LoginResponse {
+  user: SafeUser;
+  access_token: string;
+}
+
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
-  async register(registerDto: RegisterDto) {
+
+  async register(registerDto: RegisterDto): Promise<RegisterResponse> {
     const { name, email, password } = registerDto;
     const existingUser = await this.usersService.findByEmail(email);
     if (existingUser) {
@@ -26,7 +38,8 @@ export class AuthService {
     const { passwordHash: _, ...result } = user;
     return result;
   }
-  async login(loginDto: LoginDto) {
+
+  async login(loginDto: LoginDto): Promise<LoginResponse> {
     const { email, password } = loginDto;
     const user = await this.usersService.findByEmail(email);
     if (!user) {

@@ -15,8 +15,8 @@ import { UrlsModule } from './urls/urls.module';
       isGlobal: true,
     }),
     ThrottlerModule.forRoot([{
-      ttl: 60000,
-      limit: 10,
+      ttl: 60000, // 60 seconds
+      limit: 10, // limit each IP to 10 requests per ttl
     }]),
     PrismaModule,
     UsersModule,
@@ -32,4 +32,4 @@ import { UrlsModule } from './urls/urls.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
