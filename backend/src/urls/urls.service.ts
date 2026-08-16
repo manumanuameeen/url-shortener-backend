@@ -62,4 +62,18 @@ export class UrlsService implements IUrlsService {
     }
     return url;
   }
+
+  async removeUrl(userId: string, id: string): Promise<void> {
+    const url = await this.prisma.url.findFirst({
+      where: { id, userId },
+    });
+
+    if (!url) {
+      throw new NotFoundException('URL not found or unauthorized');
+    }
+
+    await this.prisma.url.delete({
+      where: { id },
+    });
+  }
 }

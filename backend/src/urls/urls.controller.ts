@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards, Delete, Param } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { Request } from 'express';
 import type { Url } from '@prisma/client';
@@ -33,5 +33,14 @@ export class UrlsController {
   findAll(@Req() req: AuthenticatedRequest): Promise<Url[]> {
     const userId = req.user.userId;
     return this.urlsService.findAllByUser(userId);
+  }
+
+  @ApiOperation({ summary: 'Delete a URL by ID' })
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async remove(@Req() req: AuthenticatedRequest, @Param('id') id: string): Promise<{ message: string }> {
+    const userId = req.user.userId;
+    await this.urlsService.removeUrl(userId, id);
+    return { message: 'URL successfully deleted' };
   }
 }
