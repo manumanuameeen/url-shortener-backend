@@ -11,11 +11,13 @@ interface AuthenticatedRequest extends Request {
   user: JwtValidatedUser;
 }
 
+import { IUrlsService } from './interfaces/urls.service.interface';
+
 @ApiTags('URLs')
 @ApiBearerAuth()
 @Controller('urls')
 export class UrlsController {
-  constructor(private readonly urlsService: UrlsService) {}
+  constructor(private readonly urlsService: IUrlsService) {}
 
   @ApiOperation({ summary: 'Create a new short URL' })
   @UseGuards(JwtAuthGuard)

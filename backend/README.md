@@ -4,18 +4,19 @@ A production-ready, authenticated URL shortener REST API built with **NestJS**, 
 
 ## ✨ Features
 
-- 🔐 **JWT Authentication** — Register and login with secure token-based auth
+- 🔐 **Advanced Security** — JWT Authentication with secure `httpOnly` refresh cookies & in-memory access tokens
 - 🔗 **URL Shortening** — Generate unique 6-character short codes using `nanoid`
-- 🛡️ **Security** — HTTP security headers via `helmet`, rate limiting via `@nestjs/throttler`
-- 📖 **Swagger Docs** — Interactive API documentation at `/api`
+- 🛡️ **Robust Protection** — HTTP security headers via `helmet`, rate limiting via `@nestjs/throttler`
+- 📐 **Clean Architecture** — Fully implements S.O.L.I.D principles, Dependency Injection, and abstract Interfaces across all layers
 - 🗄️ **MongoDB** — Cloud-hosted NoSQL database via MongoDB Atlas & Prisma ORM
-- ✅ **Validation** — Full DTO validation with `class-validator`
+- ✅ **Type Safety & Validation** — Full DTO validation with `class-validator` and zero `any` types
+- 📖 **Swagger Docs** — Interactive API documentation at `/api`
 
 ## 🛠️ Tech Stack
 
 | Technology | Purpose |
 |---|---|
-| NestJS | Backend framework |
+| NestJS | Backend framework (DI, Modules, Controllers) |
 | TypeScript | Strongly typed language |
 | Prisma ORM | Database client & schema management |
 | MongoDB Atlas | Cloud database |

@@ -2,14 +2,15 @@
 
 A production-ready, authenticated URL shortener REST API built with **NestJS**, **MongoDB**, and **Prisma ORM**.
 
-## ✨ Features
+## ✨ Features & Production Upgrades
 
-- 🔐 **JWT Authentication** — Register and login with secure token-based auth
-- 🔗 **URL Shortening** — Generate unique 6-character short codes using `nanoid`
-- 🛡️ **Security** — HTTP security headers via `helmet`, rate limiting via `@nestjs/throttler`
-- 📖 **Swagger Docs** — Interactive API documentation at `/api`
-- 🗄️ **MongoDB** — Cloud-hosted NoSQL database via MongoDB Atlas & Prisma ORM
-- ✅ **Validation** — Full DTO validation with `class-validator`
+- 🔐 **Secure JWT Authentication** — Implements a dual-token system: short-lived access tokens in memory, and long-lived refresh tokens stored securely in `HttpOnly` cookies to prevent XSS.
+- 🚀 **SOLID Architecture** — Strict adherence to Dependency Inversion and Interface Segregation. 100% of business logic services are abstracted behind interfaces.
+- 🚦 **Rate Limiting** — Built-in `@nestjs/throttler` protects all endpoints from brute force and DoS attacks (e.g., max 10 requests/minute).
+- ⚡ **Redis Caching** — The redirection endpoint is protected by a high-performance Redis caching layer to handle massive traffic spikes (the "Thundering Herd") without crashing MongoDB.
+- 🛡️ **Edge Case Protections** — Smart defenses against infinite redirect loops, duplicate URL deduplication (saving database space), and strict blocking of malicious non-HTTP protocols (`javascript:`).
+- 📖 **Swagger Docs** — Interactive API documentation at `/api`.
+- 🗄️ **MongoDB** — Cloud-hosted NoSQL database via MongoDB Atlas & Prisma ORM.
 
 ## 🛠️ Tech Stack
 
@@ -19,10 +20,10 @@ A production-ready, authenticated URL shortener REST API built with **NestJS**, 
 | TypeScript | Strongly typed language |
 | Prisma ORM | Database client & schema management |
 | MongoDB Atlas | Cloud database |
-| Passport.js + JWT | Authentication |
+| Redis | High-speed redirection caching |
+| Passport.js + JWT | Dual-token Authentication |
 | Swagger (OpenAPI) | API Documentation |
-| Helmet | Security headers |
-| Throttler | Rate limiting |
+| Helmet & Throttler | Security headers & Rate limiting |
 
 ## 📋 Prerequisites
 
@@ -62,6 +63,7 @@ DATABASE_URL="mongodb+srv://<username>:<password>@<cluster>.mongodb.net/urlshort
 JWT_SECRET="your-super-secret-jwt-key"
 JWT_EXPIRES_IN="1d"
 FRONTEND_URL="http://localhost:5173"
+REDIS_URL="redis://localhost:6379"
 ```
 
 > ⚠️ **Never commit your `.env` file to GitHub.** It is already listed in `.gitignore`.
